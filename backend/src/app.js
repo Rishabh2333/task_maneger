@@ -1,5 +1,6 @@
-const express = require("express");
-const cors = require("cors");
+
+import express from "express";
+import cors from "cors";
 const helmet = require("helmet");
 const morgan = require("morgan");
 require("dotenv").config();
@@ -21,4 +22,4 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-module.exports = app;
+export default app;
