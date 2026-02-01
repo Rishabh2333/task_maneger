@@ -1,12 +1,14 @@
 import app from "./src/app.js";
-
-const connectDB = require("./src/config/db");
+import connectDB from "./src/config/db.js";
 import cors from "cors";
 
 connectDB();
+
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+

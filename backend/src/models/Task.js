@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const taskSchema = new mongoose.Schema(
   {
@@ -11,16 +11,17 @@ const taskSchema = new mongoose.Schema(
     },
     status: {
       type: Boolean,
-  default: false,
+      default: false,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-     
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Task", taskSchema);
+const Task = mongoose.model("Task", taskSchema);
+
+export default Task;

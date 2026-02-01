@@ -1,7 +1,7 @@
-const Task = require("../models/Task");
+import Task from "../models/Task.js";
 
 /* Create Task */
-exports.createTask = async (req, res) => {
+export const createTask = async (req, res) => {
   try {
     const { title, description, status } = req.body;
 
@@ -9,7 +9,7 @@ exports.createTask = async (req, res) => {
       title,
       description,
       status,
-      user: req.user._id, // VERY IMPORTANT
+      user: req.user._id,
     });
 
     res.status(201).json(task);
@@ -19,7 +19,7 @@ exports.createTask = async (req, res) => {
 };
 
 /* Get My Tasks */
-exports.getTasks = async (req, res) => {
+export const getTasks = async (req, res) => {
   try {
     const tasks = await Task.find({ user: req.user._id }).sort({
       createdAt: -1,
@@ -31,7 +31,8 @@ exports.getTasks = async (req, res) => {
   }
 };
 
-exports.getTaskById = async (req, res) => {
+/* Get Single Task */
+export const getTaskById = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
 
@@ -39,7 +40,6 @@ exports.getTaskById = async (req, res) => {
       return res.status(404).json({ message: "Task not found" });
     }
 
-    // ownership check
     if (task.user.toString() !== req.user._id.toString()) {
       return res.status(401).json({ message: "Not authorized" });
     }
@@ -50,7 +50,8 @@ exports.getTaskById = async (req, res) => {
   }
 };
 
-exports.updateTask = async (req, res) => {
+/* Update Task */
+export const updateTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
 
@@ -62,9 +63,9 @@ exports.updateTask = async (req, res) => {
       return res.status(401).json({ message: "Not authorized" });
     }
 
-    task.title = req.body.title || task.title;
-    task.description = req.body.description || task.description;
-    task.status = req.body.status || task.status;
+    task.title = req.body.title ?? task.title;
+    task.description = req.body.description ?? task.description;
+    task.status = req.body.status ?? task.status;
 
     const updatedTask = await task.save();
 
@@ -74,7 +75,8 @@ exports.updateTask = async (req, res) => {
   }
 };
 
-exports.deleteTask = async (req, res) => {
+/* Delete Task */
+export const deleteTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
 
