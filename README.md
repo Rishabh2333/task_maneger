@@ -1,7 +1,8 @@
 # ✅ Task Manager Pro
 
-## 📹 Project Demo Video (Unlisted)
-▶️ (Add your demo video link here)
+## 📹 Project live link
+Backend: https://task-maneger-3tju.onrender.com
+Frontend:https://task-maneger-nine.vercel.app/
 
 ---
 
