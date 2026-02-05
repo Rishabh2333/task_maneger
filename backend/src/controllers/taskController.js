@@ -1,7 +1,6 @@
-import Task from "../models/Task.js";
+const Task = require("../models/Task");
 
-/* Create Task */
-export const createTask = async (req, res) => {
+const createTask = async (req, res) => {
   try {
     const { title, description, status } = req.body;
 
@@ -18,27 +17,20 @@ export const createTask = async (req, res) => {
   }
 };
 
-/* Get My Tasks */
-export const getTasks = async (req, res) => {
+const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({ user: req.user._id }).sort({
-      createdAt: -1,
-    });
-
+    const tasks = await Task.find({ user: req.user._id }).sort({ createdAt: -1 });
     res.json(tasks);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-/* Get Single Task */
-export const getTaskById = async (req, res) => {
+const getTaskById = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
 
-    if (!task) {
-      return res.status(404).json({ message: "Task not found" });
-    }
+    if (!task) return res.status(404).json({ message: "Task not found" });
 
     if (task.user.toString() !== req.user._id.toString()) {
       return res.status(401).json({ message: "Not authorized" });
@@ -50,14 +42,11 @@ export const getTaskById = async (req, res) => {
   }
 };
 
-/* Update Task */
-export const updateTask = async (req, res) => {
+const updateTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
 
-    if (!task) {
-      return res.status(404).json({ message: "Task not found" });
-    }
+    if (!task) return res.status(404).json({ message: "Task not found" });
 
     if (task.user.toString() !== req.user._id.toString()) {
       return res.status(401).json({ message: "Not authorized" });
@@ -75,14 +64,11 @@ export const updateTask = async (req, res) => {
   }
 };
 
-/* Delete Task */
-export const deleteTask = async (req, res) => {
+const deleteTask = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
 
-    if (!task) {
-      return res.status(404).json({ message: "Task not found" });
-    }
+    if (!task) return res.status(404).json({ message: "Task not found" });
 
     if (task.user.toString() !== req.user._id.toString()) {
       return res.status(401).json({ message: "Not authorized" });
@@ -94,4 +80,12 @@ export const deleteTask = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  createTask,
+  getTasks,
+  getTaskById,
+  updateTask,
+  deleteTask,
 };
