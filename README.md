@@ -1,8 +1,8 @@
 # ✅ Task Manager Pro
 
 ## 📹 Project live link
-Backend: https://task-maneger-3tju.onrender.com
-Frontend:https://task-maneger-nine.vercel.app/
+Backend: https://task-maneger-ygpr.onrender.com
+Frontend:https://task-maneger-a6z4b0r8g-rishabhs-projects-1fa21baa.vercel.app/
 
 ---
 
